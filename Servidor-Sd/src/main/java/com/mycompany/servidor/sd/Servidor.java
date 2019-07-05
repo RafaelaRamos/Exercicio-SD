@@ -5,8 +5,6 @@
  */
 package com.mycompany.servidor.sd;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -31,19 +29,18 @@ public class Servidor {
             socket = server.accept();
             ObjectInputStream obj = new ObjectInputStream(socket.getInputStream());
             mensagem = (ArrayList) obj.readObject();
-            System.out.println(mensagem);
             int num = (int) mensagem.get(0);
             int num2 = (int) mensagem.get(1);
-            System.out.println(mensagem.get(2));
-
+           
+            //Tipo de operacao
             if (mensagem.get(2).equals("soma")) {
 
                 resposta = num + num2;
-                System.out.println(resposta);
+               
 
             } else {
                 resposta = num - num2;
-                System.out.println(resposta);
+                
             }
 
             ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());

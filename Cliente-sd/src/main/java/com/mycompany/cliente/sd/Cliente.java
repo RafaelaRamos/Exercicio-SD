@@ -5,8 +5,6 @@
  */
 package com.mycompany.cliente.sd;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -31,8 +29,10 @@ public class Cliente {
 
     public static void main(String[] args) throws IOException {
         int resposta = 0;
+       //operacoes
         op.add("soma");
         op.add("sub");
+        // numeros aleatorios
         mensagem.add(rd.nextInt(10));
         mensagem.add(rd.nextInt(10));
         mensagem.add(op.get(0));
@@ -45,8 +45,10 @@ public class Cliente {
         output.writeObject(mensagem);
 
         ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
-        resposta = input.readInt();
+        
 
+        resposta = input.readInt();
+       
         requestReply(resposta);
 
     }
@@ -55,14 +57,19 @@ public class Cliente {
         while (true) {
             Socket socket = new Socket("localhost", 10999);
             ObjectOutputStream output = new ObjectOutputStream(socket.getOutputStream());
-            Collections.shuffle(op);
+           
+           
+            //novo numero aleatorio
             mensagem.set(0, rd.nextInt(10));
+            //resposta da requisicao anterior
             mensagem.set(1, resposta);
+            //operacao aleatoria
+            Collections.shuffle(op);
             mensagem.set(2, op.get(0));
             output.writeObject(mensagem);
             ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
             resposta = input.readInt();
-            System.out.print(resposta);
+            System.out.print(resposta+" \n");
 
         }
     }
